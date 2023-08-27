@@ -36,12 +36,12 @@ class NoteService<T>(val id: T, val text: T, private val notesList: MutableColle
         return false// TODO Проверит!
     }     //    Удаляет комментарий к заметке
 
-    private fun edit(id: Int, note: Notes) {
+     fun edit(id: Int, note: Notes) {
         delete(id)
         add(note)
     }                                         //    Редактирует заметку текущего пользовател
 
-    private fun editComment(id: Int, note: Notes, comment: Comment) {
+     fun editComment(id: Int, note: Notes, comment: Comment) {
         if (comment.status) {
             if (id == comment.id) {
                 deleteComment(id, note, comment)
@@ -50,7 +50,7 @@ class NoteService<T>(val id: T, val text: T, private val notesList: MutableColle
         }
     }                //    Редактирует указанный комментарий у заметк
 
-    private fun get(id: Int): MutableCollection<Notes> {
+     fun get(id: Int): MutableCollection<Notes> {
         val notes = notesList
         return notes
     }                             //    Возвращает список заметок, созданных пользователе
@@ -59,7 +59,7 @@ class NoteService<T>(val id: T, val text: T, private val notesList: MutableColle
         return notesList.find { it.id == id }
     }                                           //    Возвращает заметку по её id
 
-    private fun getComments(id: Int): MutableList<Comment> {
+     fun getComments(id: Int): MutableList<Comment> {
         return getById(id)!!.comment
     }                         //    Возвращает список комментариев к заметке
 }
