@@ -1,4 +1,5 @@
-fun main() {}
+fun main() {
+}
 
 data class Notes(
     val text: String, val id: Int, val comment: MutableList<Comment> = mutableListOf()
