@@ -1,4 +1,6 @@
 fun main() {
+    NoteService(id = 35, text = "sdf")
+
 }
 
 data class Notes(
@@ -60,6 +62,7 @@ class NoteService<T>(val id: T, val text: T, private val notesList: MutableColle
     }                                           //    Возвращает заметку по её id
 
      fun getComments(id: Int): MutableList<Comment> {
+
         return getById(id)!!.comment
     }                         //    Возвращает список комментариев к заметке
 }
