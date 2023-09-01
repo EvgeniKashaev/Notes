@@ -1,8 +1,14 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.9.0'
+    id 'org.jetbrains.kotlin.jvm' version '1.8.10'
+    id 'application'
+    id 'java'
+    id 'jacoco'
+}
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
 }
 
-group = 'ru.net'
+group = 'org.example'
 version = '1.0-SNAPSHOT'
 
 repositories {
@@ -10,13 +16,10 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+    testImplementation 'junit:junit:4.13.2'
 }
 
-test {
-    useJUnitPlatform()
-}
 
-kotlin {
-    jvmToolchain(8)
+application {
+    mainClassName = 'MainKt'
 }
