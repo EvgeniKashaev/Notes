@@ -68,5 +68,9 @@ class NoteService() {
             }
         }
         return commentToNote
-    }                         //    Возвращает список комментариев к заметке
+    } //    Возвращает список комментариев к заметке
+    private fun restoreComment(comment: Comment){
+        comment.statusComment = true
+    }
+    //Восстанавливает удалённый комментарий.
 }
