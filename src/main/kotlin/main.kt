@@ -1,76 +1,101 @@
 fun main() {
+
 }
 
 data class Notes(
-
-    val title: String, val text: String, val id: Int
-
-) // Заметки
+    val id: Int = 0,
+    val title: String = "Название",
+    var text: String = "текст заметки"
+)   /* Заметки */
 
 data class Comment(
-    var statusComment: Boolean = true, var idNote: Int, var idComment: Int, val text: String
-) // Комментарии
+    var statusComment: Boolean = true,
+    var idNote: Int,
+    var idComment: Int,
+    var text: String = "null"
+) /* Комментарии */
 
-class NoteService() {
+object NoteService {
+
     private val noteList = mutableListOf<Notes>()
     private val commentList = mutableListOf<Comment>()
 
-    private fun add(note: Notes): Notes {
+    fun add(note: Notes): Notes {
         noteList += note.copy()
         return noteList.last()
-    }                               //    Создает новую заметку у текущего пользователfun
+    }                               /* Создает новую заметку у текущего пользователfun */
 
-    private fun createComment(comment: Comment, id: Int) {
-        for (i in noteList.indices) {
-            if (noteList[id].id == comment.idNote) {
-                commentList += comment.copy()
+    fun createComment(comment: Comment) {
+        commentList += comment.copy()
+
+    }              /* Добавляет новый комментарий к заметкee */
+
+    fun delete(id: Int) {
+        for (i: Notes in noteList) {
+            if (id == i.id) {
+                noteList.remove(i)
+                break
             }
         }
-    }              //    Добавляет новый комментарий к заметкee
+    }          /* Удаляет заметку текущего пользовател */
 
-    private fun delete(note: Notes, comment: Comment) {
-        if (comment.statusComment) {
-            commentList.removeAt(comment.idComment)
-        } // При удаление заметки должен удаляется комментарий т.к заметка не является востонавливаеым объектом
-    }          //    Удаляет заметку текущего пользовател
-
-    fun deleteComment(comment: Comment, noteId: Int, commentId: Int) {
+    fun deleteComment(noteId: Int, commentId: Int) {
         for (i in commentList) {
             if (i.idNote == noteId && i.idComment == commentId) {
-                comment.statusComment = false
+                i.statusComment = false
             }
         }
-    }              //    Удаляет комментарий к заметке
+    }              /* Удаляет комментарий к заметке */
 
-    private fun edit(note: Notes): Notes {
-        noteList[note.id] = note
+    fun edit(id: Int, text: String): Notes {
+        for (i: Notes in noteList) {
+            if (id == i.id) {
+                i.text = text
+                break
+            }
+        }
         return noteList.last()
-    }                              //    Редактирует заметку текущего пользовател
+    }                              /* Редактирует заметку текущего пользовател */
 
-    private fun editComment(comment: Comment): Comment {
-        commentList[comment.idComment] = comment
-        return commentList.last()
-    }                 //    Редактирует указанный комментарий у заметк
-
-    private fun get(): MutableList<Notes> {
-        return noteList
-    }                                                   //    Возвращает список заметок, созданных пользователе
-
-    private fun getById(note: Notes, id: Int): Notes {
-        return noteList[id]
-    }                                                   //    Возвращает заметку по её id
-
-    private fun getComments(comment: Comment, noteId: Int, commentId: Int): MutableList<Comment> {
-        val commentToNote = mutableListOf<Comment>()
+    fun editComment(idNote: Int, idComment: Int, text: String): Comment {
         for (i in commentList) {
-            if (i.idNote == noteId && i.idComment == commentId && comment.statusComment) {
-                    commentToNote += comment.copy()
+            if (i.idNote == idNote && i.idComment == idComment) i.text = text
+        }
+        return commentList.last()
+    }                 /* Редактирует указанный комментарий у заметк */
+
+    fun get(): MutableList<Notes> {
+        return noteList
+    }                                                   /* Возвращает список заметок, созданных пользователе */
+
+
+    fun getById(note: Notes): Any {
+
+        val index: Int = noteList.indexOf(note)
+        if (index != -1) {
+            return noteList[index]
+        }
+        return println("Заметка не найдена")
+    }                                                   /* Возвращает заметку по её id */
+
+
+    fun getComments(noteId: Int): MutableList<Comment> {
+        val commentToNote: MutableList<Comment> = mutableListOf()
+        for (i: Comment in commentList) {
+            println("0")
+            if (i.idNote == noteId && i.statusComment) {
+                commentToNote += i
             }
         }
         return commentToNote
-    } //    Возвращает список комментариев к заметке
-    private fun restoreComment(comment: Comment){
-        comment.statusComment = true
+    } /* Возвращает список комментариев к заметке */
+
+    fun restoreComment(commentId: Int, noteId: Int) {
+        for (i in commentList) {
+            if (i.idNote == noteId && i.idComment == commentId) {
+                i.statusComment = true
+            }
+        }
     }
-    //Восстанавливает удалённый комментарий.
+    /* Восстанавливает удалённый комментарий. */
 }
