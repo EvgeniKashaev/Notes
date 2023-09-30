@@ -1,13 +1,4 @@
 fun main() {
-    val comment = Comment(false, 1, 1, text = "1")
-
-    NoteService.createComment(comment)
-    NoteService.restoreComment(1, 1)
-
-    val list = NoteService.commentList
-    val result = list.last().statusComment
-    println(NoteService.commentList)
-
 }
 
 data class Notes(
