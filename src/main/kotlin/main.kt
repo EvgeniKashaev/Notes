@@ -4,7 +4,7 @@ fun main() {
 
 data class Notes(
     val id: Int = 0,
-    val title: String = "Название",
+    val title: String = "Названи",
     var text: String = "текст заметки"
 )   /* Заметки */
 
