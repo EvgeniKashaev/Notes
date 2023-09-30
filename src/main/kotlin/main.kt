@@ -17,8 +17,8 @@ data class Comment(
 
 object NoteService {
 
-    private val noteList<Note> = mutableListOf<Notes>()
-    private val commentList<Comment> = mutableListOf<Comment>()
+    private val noteList = mutableListOf<Notes>()
+    private val commentList = mutableListOf<Comment>()
 
     fun add(note: Notes): Notes {
         noteList += note.copy()
